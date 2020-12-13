@@ -6,12 +6,16 @@ CyclicBarrier for zig lang
 const CyclicBarrier = @import("./CyclicBarrier.zig").CyclicBarrier;
 
 main thread:
+pub fn main() !void {
+    ....
     var barrier = CyclicBarrier.init(8); // the number of 'parties'
     var param = Param{.barrier=&barrier};
     var threads:[8]*std.Thread = undefined;
     for(threads[0..8]) |*item|{
         item.* = std.Thread.spawn(param, barrier_test) catch unreachable;
     }
+    ....
+}
 
 worker threads:
 fn barrier_test(param: Param) !void {
